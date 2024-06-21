@@ -2,19 +2,17 @@
 
 import rclpy
 from rclpy.node import Node
-# from hospital_robot_spawner.MonteCarloGLIE import MonteCarloControlGLIE
-# from hospital_robot_spawner.nStepTD import nStepTD
-# from hospital_robot_spawner.Q_learning import QLearning
-# from hospital_robot_spawner.hospitalbot_env import HospitalBotEnv
+import torch
 
+'''import policy algorithm'''
 from MonteCarloGLIE import MonteCarloControlGLIE
 from nStepTD import nStepTD
 from Q_learning import QLearning
-from hospitalbot_env import HospitalBotEnv
 
-import pickle
-import json
-import torch
+'''import environment'''
+from DoorTraversal_env import DoorTraversalEnv
+from HoldHandle_env import HoldHandleEnv
+
 class TrainingNode(Node):
 
     def __init__(self):
@@ -29,7 +27,7 @@ def main(args=None):
     node.get_logger().info("Training node has been created")
     node.get_logger().info("Training mode: " + str(node._training_mode))
 
-    env = HospitalBotEnv()
+    env = DoorTraversalEnv()
     if node._training_mode == "training":
         f = 'test.pt'
         # policy,returns,BT_string_dict,reward_report,action_num_report,trajectory_memory = QLearning(env=env,seed=1, num_episodes=1000, model = None, epsilon=1.0,filename=f)
