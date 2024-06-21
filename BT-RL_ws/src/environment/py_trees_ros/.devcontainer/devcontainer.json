@@ -1,0 +1,40 @@
+{
+    "name": "py_trees_ros",
+
+    "build": {
+        "dockerfile": "./Dockerfile",
+        "args": {
+            "NAME": "py_trees_ros",
+            "ROS_DISTRO": "humble"
+        },
+        "context": ".."
+    },
+    "remoteUser": "zen",
+    "workspaceMount": "source=${localWorkspaceFolder}/../..,target=/workspace,type=bind",
+    "workspaceFolder": "/workspace",
+    // Qt Configuration - assumes the host has an Xorg server, you
+    // may need a different configuration for e.g. Wayland.
+    "containerEnv": {
+        "DISPLAY": "${localEnv:DISPLAY}",
+        "QT_DEBUG_PLUGINS": "1"
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "bierner.github-markdown-preview",
+                "bungcip.better-toml",
+                "streetsidesoftware.code-spell-checker",
+                "lextudio.restructuredtext",
+                "ms-python.python",
+                "omnilib.ufmt"
+            ]
+        }
+    },
+    "mounts": [
+		{
+            "source": "/tmp/.X11-unix",
+            "target": "/tmp/.X11-unix",
+            "type": "bind"
+        }
+	]
+}

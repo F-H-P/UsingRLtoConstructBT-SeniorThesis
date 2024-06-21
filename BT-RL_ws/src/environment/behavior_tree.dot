@@ -1,0 +1,33 @@
+digraph pastafarianism {
+ordering=out;
+graph [fontname="times-roman"];
+node [fontname="times-roman"];
+edge [fontname="times-roman"];
+Sequence [fillcolor=cyan, fontcolor=black, fontsize=9, label="Ⓜ Sequence", shape=octagon, style=filled];
+Fallback [fillcolor=cyan, fontcolor=black, fontsize=9, label=Fallback, shape=octagon, style=filled];
+Sequence -> Fallback;
+"carried weight < 5?" [fillcolor=gray, fontcolor=black, fontsize=9, label="carried weight < 5?", shape=ellipse, style=filled];
+Fallback -> "carried weight < 5?";
+"Sequence*" [fillcolor=cyan, fontcolor=black, fontsize=9, label="Ⓜ Sequence*", shape=octagon, style=filled];
+Fallback -> "Sequence*";
+"move to CHARGE1" [fillcolor=gray, fontcolor=black, fontsize=9, label="move to CHARGE1", shape=ellipse, style=filled];
+"Sequence*" -> "move to CHARGE1";
+"charge!" [fillcolor=gray, fontcolor=black, fontsize=9, label="charge!", shape=ellipse, style=filled];
+"Sequence*" -> "charge!";
+"Fallback*" [fillcolor=cyan, fontcolor=black, fontsize=9, label="Fallback*", shape=octagon, style=filled];
+Sequence -> "Fallback*";
+"conveyor light < 1?" [fillcolor=gray, fontcolor=black, fontsize=9, label="conveyor light < 1?", shape=ellipse, style=filled];
+"Fallback*" -> "conveyor light < 1?";
+"conveyor light < 1?*" [fillcolor=gray, fontcolor=black, fontsize=9, label="conveyor light < 1?*", shape=ellipse, style=filled];
+"Fallback*" -> "conveyor light < 1?*";
+"Sequence**" [fillcolor=cyan, fontcolor=black, fontsize=9, label="Ⓜ Sequence**", shape=octagon, style=filled];
+"Fallback*" -> "Sequence**";
+"move to CONVEYOR_LIGHT!" [fillcolor=gray, fontcolor=black, fontsize=9, label="move to CONVEYOR_LIGHT!", shape=ellipse, style=filled];
+"Sequence**" -> "move to CONVEYOR_LIGHT!";
+"idle!" [fillcolor=gray, fontcolor=black, fontsize=9, label="idle!", shape=ellipse, style=filled];
+"Sequence**" -> "idle!";
+"Fallback**" [fillcolor=cyan, fontcolor=black, fontsize=9, label="Fallback**", shape=octagon, style=filled];
+"Fallback*" -> "Fallback**";
+"conveyor light < 1?**" [fillcolor=gray, fontcolor=black, fontsize=9, label="conveyor light < 1?**", shape=ellipse, style=filled];
+"Fallback**" -> "conveyor light < 1?**";
+}

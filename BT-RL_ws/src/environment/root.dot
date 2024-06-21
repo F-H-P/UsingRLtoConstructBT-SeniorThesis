@@ -1,0 +1,21 @@
+digraph pastafarianism {
+ordering=out;
+graph [fontname="times-roman"];
+node [fontname="times-roman"];
+edge [fontname="times-roman"];
+root [fillcolor=ghostwhite, fontcolor=black, fontsize=9, label=root, shape=ellipse, style=filled];
+Seq [fillcolor=orange, fontcolor=black, fontsize=9, label="Ⓜ Seq", shape=box, style=filled];
+root -> Seq;
+go_to_location [fillcolor=gray, fontcolor=black, fontsize=9, label=go_to_location, shape=ellipse, style=filled];
+Seq -> go_to_location;
+"is find marker-fallback" [fillcolor=cyan, fontcolor=black, fontsize=9, label="Ⓜ is find marker-fallback", shape=octagon, style=filled];
+Seq -> "is find marker-fallback";
+isFindMarker [fillcolor=gray, fontcolor=black, fontsize=9, label=isFindMarker, shape=ellipse, style=filled];
+"is find marker-fallback" -> isFindMarker;
+move [fillcolor=gray, fontcolor=black, fontsize=9, label=move, shape=ellipse, style=filled];
+"is find marker-fallback" -> move;
+gripper [fillcolor=gray, fontcolor=black, fontsize=9, label=gripper, shape=ellipse, style=filled];
+Seq -> gripper;
+create [fillcolor=gray, fontcolor=black, fontsize=9, label=create, shape=ellipse, style=filled];
+Seq -> create;
+}

@@ -1,0 +1,51 @@
+name: push-ci-image
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}-ci
+
+on:
+  workflow_dispatch:
+    inputs:
+      ros_distro:
+        description: "humble, rolling, ..."
+        required: false
+        default: "rolling"
+
+jobs:
+  push-ci-image:
+    runs-on: ubuntu-22.04
+    permissions: 
+      contents: read
+      packages: write 
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Login to GCR
+      uses: docker/login-action@v2
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Metadata
+      id: meta
+      uses: docker/metadata-action@v4
+      with:
+        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+    - name: Echo
+      run: |
+        echo "USER: ${{ github.actor }}"
+        echo "REPOSITORY: ${{ github.repository }}"
+        echo "ROS_DISTRO: ${{ github.event.inputs.ros_distro }}"
+        echo "TAGS: ${{ steps.meta.outputs.tags }}"
+        echo "LABELS: ${{ steps.meta.outputs.labels }}"
+    - name: Image - ${{ github.event.inputs.ros_distro }}
+      uses: docker/build-push-action@v3
+      with:
+        file: ./.devcontainer/Dockerfile
+        push: true
+        build-args: |
+          ROS_DISTRO=${{ github.event.inputs.ros_distro }}
+        tags: |
+          ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.event.inputs.ros_distro }}
+        labels: ${{ steps.meta.outputs.labels }}

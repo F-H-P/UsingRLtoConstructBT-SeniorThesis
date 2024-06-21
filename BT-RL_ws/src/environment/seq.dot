@@ -1,0 +1,7 @@
+digraph pastafarianism {
+ordering=out;
+graph [fontname="times-roman"];
+node [fontname="times-roman"];
+edge [fontname="times-roman"];
+Seq [fillcolor=orange, fontcolor=black, fontsize=9, label="Ⓜ Seq", shape=box, style=filled];
+}

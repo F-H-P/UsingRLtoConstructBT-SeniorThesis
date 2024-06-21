@@ -1,0 +1,50 @@
+colcon build && source install/setup.bash && ros2 launch ur5_ros2_gazebo ur5_simulation.launch.py 
+ros2 run ros2_aruco aruco_node 
+ros2 launch carver_navigation vmegarover_navigation.launch.py 
+python3 ~/Fang_Folder/BT-RL_ws/src/environment/mm_bt/scripts/mobile_manipulator_state.py 
+python3 ~/Fang_Folder/BT-RL_ws/src/environment/mm_bt/scripts/mobile_manipulator_action.py 
+--------------------------------------------------
+
+
+ros2 run spacenav spacenav_node 
+ros2 run spacenav spacenav_node --ros-args --remap spacenav/twist:=cmd_vel
+
+
+ros2 run tf2_ros tf2_echo base_link end_effector
+
+python3 ~/ur5_ws/src/mm_bt/scripts/door_detect_server.py 
+python3 ~/ur5_ws/src/mm_bt/scripts/mobile_manipulator_server.py 
+python3 ~/ur5_ws/src/mm_bt/scripts/teleop_server.py 
+python3 ~/ur5_ws/src/mm_bt/scripts/mobile_manipulator_controller.py 
+
+python3 ~/ur5_ws/src/mm_bt/scripts/mobile_manipulator_state.py 
+python3 ~/ur5_ws/src/mm_bt/scripts/autonomous_mode.py 
+python3 ~/ur5_ws/src/mm_bt/scripts/mobile_manipulator_action.py 
+
+py-trees-tree-watcher -b
+py-trees-tree-watcher -s
+flatpak run com.obsproject.Studio
+
+
+ros2 action send_goal /compute_path_to_pose nav2_msgs/action/ComputePathToPose "goal:
+  header:
+    stamp:
+      sec: 0
+      nanosec: 0
+    frame_id: 'map'
+  pose:
+    position:
+      x: 0.0
+      y: 0.0
+      z: 0.0
+    orientation:
+      x: 0.0
+      y: 0.0
+      z: 0.0
+      w: 1.0
+start:
+  header:
+    stamp:
+      sec: 0
+      nanosec: 0
+use_start: false" 

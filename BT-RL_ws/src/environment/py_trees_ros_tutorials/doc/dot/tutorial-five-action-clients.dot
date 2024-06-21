@@ -1,0 +1,61 @@
+digraph pastafarianism {
+ordering=out;
+graph [fontname="times-roman"];
+node [fontname="times-roman"];
+edge [fontname="times-roman"];
+"Tutorial Five" [fillcolor=gold, fontcolor=black, fontsize=9, label="Tutorial Five\nSuccessOnAll", shape=parallelogram, style=filled];
+Topics2BB [fillcolor=orange, fontcolor=black, fontsize=9, label="Ⓜ Topics2BB", shape=box, style=filled];
+"Tutorial Five" -> Topics2BB;
+Scan2BB [fillcolor=gray, fontcolor=black, fontsize=9, label=Scan2BB, shape=ellipse, style=filled];
+Topics2BB -> Scan2BB;
+Battery2BB [fillcolor=gray, fontcolor=black, fontsize=9, label=Battery2BB, shape=ellipse, style=filled];
+Topics2BB -> Battery2BB;
+Tasks [fillcolor=cyan, fontcolor=black, fontsize=9, label=Tasks, shape=octagon, style=filled];
+"Tutorial Five" -> Tasks;
+"Battery Low?" [fillcolor=ghostwhite, fontcolor=black, fontsize=9, label="Battery Low?", shape=ellipse, style=filled];
+Tasks -> "Battery Low?";
+"Flash Red" [fillcolor=gray, fontcolor=black, fontsize=9, label="Flash Red", shape=ellipse, style=filled];
+"Battery Low?" -> "Flash Red";
+Scan [fillcolor=orange, fontcolor=black, fontsize=9, label="Ⓜ Scan", shape=box, style=filled];
+Tasks -> Scan;
+"Scan?" [fillcolor=gray, fontcolor=black, fontsize=9, label="Scan?", shape=ellipse, style=filled];
+Scan -> "Scan?";
+"Preempt?" [fillcolor=cyan, fontcolor=black, fontsize=9, label="Preempt?", shape=octagon, style=filled];
+Scan -> "Preempt?";
+SuccessIsRunning [fillcolor=ghostwhite, fontcolor=black, fontsize=9, label=SuccessIsRunning, shape=ellipse, style=filled];
+"Preempt?" -> SuccessIsRunning;
+"Scan?*" [fillcolor=gray, fontcolor=black, fontsize=9, label="Scan?*", shape=ellipse, style=filled];
+SuccessIsRunning -> "Scan?*";
+Scanning [fillcolor=gold, fontcolor=black, fontsize=9, label="Scanning\nSuccessOnOne", shape=parallelogram, style=filled];
+"Preempt?" -> Scanning;
+Rotate [fillcolor=gray, fontcolor=black, fontsize=9, label=Rotate, shape=ellipse, style=filled];
+Scanning -> Rotate;
+"Flash Blue" [fillcolor=gray, fontcolor=black, fontsize=9, label="Flash Blue", shape=ellipse, style=filled];
+Scanning -> "Flash Blue";
+Celebrate [fillcolor=gold, fontcolor=black, fontsize=9, label="Celebrate\nSuccessOnOne", shape=parallelogram, style=filled];
+Scan -> Celebrate;
+"Flash Green" [fillcolor=gray, fontcolor=black, fontsize=9, label="Flash Green", shape=ellipse, style=filled];
+Celebrate -> "Flash Green";
+Pause [fillcolor=gray, fontcolor=black, fontsize=9, label=Pause, shape=ellipse, style=filled];
+Celebrate -> Pause;
+Idle [fillcolor=gray, fontcolor=black, fontsize=9, label=Idle, shape=ellipse, style=filled];
+Tasks -> Idle;
+"/goal_0d200292-24e9-4aef-9f08-a16147275b7e" -> Rotate  [color=green, constraint=False, weight=0];
+Rotate -> "/goal_0d200292-24e9-4aef-9f08-a16147275b7e"  [color=blue, constraint=False, weight=0];
+"/battery_low_warning" -> "Battery Low?"  [color=green, constraint=False, weight=0];
+Battery2BB -> "/battery_low_warning"  [color=blue, constraint=False, weight=0];
+Battery2BB -> "/battery"  [color=blue, constraint=False, weight=0];
+"/event_scan_button" -> "Scan?"  [color=green, constraint=False, weight=0];
+"/event_scan_button" -> "Scan?*"  [color=green, constraint=False, weight=0];
+Scan2BB -> "/event_scan_button"  [color=blue, constraint=False, weight=0];
+subgraph Blackboard {
+id=Blackboard;
+label=Blackboard;
+rank=sink;
+"/goal_0d200292-24e9-4aef-9f08-a16147275b7e" [color=blue, fillcolor=white, fixedsize=False, fontcolor=blue, fontsize=8, height=0, label="/goal_0d200292-24e9-4aef-9f08-a16147275b7e: py_trees_ros_inte...", shape=box, style=filled, width=0];
+"/battery_low_warning" [color=blue, fillcolor=white, fixedsize=False, fontcolor=blue, fontsize=8, height=0, label="/battery_low_warning: False", shape=box, style=filled, width=0];
+"/battery" [color=blue, fillcolor=white, fixedsize=False, fontcolor=blue, fontsize=8, height=0, label="/battery: sensor_msgs.msg.B...", shape=box, style=filled, width=0];
+"/event_scan_button" [color=blue, fillcolor=white, fixedsize=False, fontcolor=blue, fontsize=8, height=0, label="/event_scan_button: -", shape=box, style=filled, width=0];
+}
+
+}

@@ -1,0 +1,29 @@
+->
+|    ?
+|    |    (Robot is Arrived?)
+|    |    ->
+|    |    |    ?
+|    |    |    |    (Gripper is Open?)
+|    |    |    |    [Open Gripper]
+|    |    |    ?
+|    |    |    |    (Manipulator is Home?)
+|    |    |    |    [MOVEJ (Home)]
+|    |    |    ->    
+|    |    |    |    (Check Door Open)
+|    |    |    |    [Navegation To (Pose)]
+|    |    ?
+|    |    |    (Marker is Center?)
+|    |    |    [Rotate]
+|    |    ?
+|    |    |    (Robot is Approch)
+|    |    |    ->
+|    |    |    |    [Create Path]
+|    |    |    |    [Approach Door]
+|    |    ?
+|    |    |    (isGripHandle)
+|    |    |    ->
+|    |    |    |    ?
+|    |    |    |    |    (isAproachHandle)
+|    |    |    |    |    ->
+|    |    |    |    |    |    [MoveL (Pose)]
+|    |    |    |    |    |    [Closed Gripper]

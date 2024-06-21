@@ -1,0 +1,15 @@
+##############################################################################
+#
+# Close an existing blackboard stream.
+#
+# Request
+#   topic_name: blackboard stream to close
+#
+# Response
+#   result: success/failure of the operation (failure: stream did not exist)
+#
+##############################################################################
+
+string topic_name
+---
+bool result

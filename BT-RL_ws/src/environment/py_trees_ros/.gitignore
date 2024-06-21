@@ -1,0 +1,22 @@
+py_trees_ros.egg-info
+*/doc/html
+*/doc/manifest.yaml
+*.pyc
+*.png
+*.svg
+build
+dist
+deb_dist
+py_trees*.tar.gz 
+*~
+\#*
+.#*
+.cache
+.eggs
+*.md.html
+
+# Generated files (when debugging)
+py_trees_ros/resources/*.py
+html
+
+scripts

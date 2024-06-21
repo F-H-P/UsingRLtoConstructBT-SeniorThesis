@@ -1,0 +1,16 @@
+# Specify a list of variables to watch on the blackboard. These
+# can be nested variables (e.g. get only the position in an odom
+# message). Typically this service is not used directly, but by the
+# blackboard watcher utility
+
+# list of variables to watch
+string[] variables
+# restrict the list of variable names to select from those
+# associated with behaviours on the tree tick's visited path
+bool filter_on_visited_path
+# include the activity stream associated with the most recent
+# changes to the blackboard
+bool with_activity_stream
+---
+# topic name that is dynamically created for watching
+string topic

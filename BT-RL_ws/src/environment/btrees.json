@@ -1,0 +1,17 @@
+{
+  "actions": {
+    "Perform system check": {},
+    "Check battey level": {},
+    "Rotate for better view": {},
+    "Use sensor to locate door": {},
+    "Navigate to the door": {},
+    "Navigate around obstacle": {},
+    "Wait if obstacle is temporary": {}
+  },
+  "conditions": {
+    "Are system diagnostics OK?": {},
+    "Is battery level sufficient?": {},
+    "Is door visible?": {},
+    "Are there any obstacle in the path?": {}
+  }
+}

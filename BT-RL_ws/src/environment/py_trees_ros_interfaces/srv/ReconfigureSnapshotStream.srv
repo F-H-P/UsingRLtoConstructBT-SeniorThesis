@@ -1,0 +1,19 @@
+##############################################################################
+# Reconfigure a snapshot stream.
+#
+# Request
+#   topic_name: the snapshot stream to reconfigure
+#   parameters: used to configure the contents/rate of the stream
+#
+# Response
+#
+#   result: success/failure of the operation (failure: stream did not exist)
+#
+##############################################################################
+
+string topic_name
+SnapshotStreamParameters parameters
+
+---
+
+bool result

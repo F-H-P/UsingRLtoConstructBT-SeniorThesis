@@ -1,0 +1,23 @@
+##############################################################################
+# Open a snapshot stream.
+#
+# Request
+#   topic_name: (optional) snapshot stream location 
+#   parameters: used to configure the contents/rate of the stream
+#
+# Response
+#
+#   topic_name: the topic created for the snapshot stream
+#
+# Note: if the topic_name is not provided the service is expected to
+# create and return a dynamically created snapshot stream on a hidden
+# topic (the topic name will be returned in the response).
+#
+##############################################################################
+
+string topic_name
+SnapshotStreamParameters parameters
+
+---
+
+string topic_name

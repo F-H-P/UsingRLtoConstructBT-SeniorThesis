@@ -1,0 +1,23 @@
+digraph pastafarianism {
+ordering=out;
+graph [fontname="times-roman"];
+node [fontname="times-roman"];
+edge [fontname="times-roman"];
+"Door Transversal" [fillcolor=gold, fontcolor=black, fontsize=9, label="Door Transversal\nSuccessOnAll", shape=parallelogram, style=filled];
+Topics2BB [fillcolor=orange, fontcolor=black, fontsize=9, label="Ⓜ Topics2BB", shape=box, style=filled];
+"Door Transversal" -> Topics2BB;
+d2bb [fillcolor=gray, fontcolor=black, fontsize=9, label=d2bb, shape=ellipse, style=filled];
+Topics2BB -> d2bb;
+theta2bb [fillcolor=gray, fontcolor=black, fontsize=9, label=theta2bb, shape=ellipse, style=filled];
+Topics2BB -> theta2bb;
+m2bb [fillcolor=gray, fontcolor=black, fontsize=9, label=m2bb, shape=ellipse, style=filled];
+Topics2BB -> m2bb;
+obstacle_distance2bb [fillcolor=gray, fontcolor=black, fontsize=9, label=obstacle_distance2bb, shape=ellipse, style=filled];
+Topics2BB -> obstacle_distance2bb;
+door_transversal [fillcolor=orange, fontcolor=black, fontsize=9, label="Ⓜ door_transversal", shape=box, style=filled];
+"Door Transversal" -> door_transversal;
+OpenGripper [fillcolor=gray, fontcolor=black, fontsize=9, label=OpenGripper, shape=ellipse, style=filled];
+door_transversal -> OpenGripper;
+"move joint" [fillcolor=gray, fontcolor=black, fontsize=9, label="move joint", shape=ellipse, style=filled];
+door_transversal -> "move joint";
+}

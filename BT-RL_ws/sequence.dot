@@ -1,0 +1,35 @@
+digraph pastafarianism {
+ordering=out;
+graph [fontname="times-roman"];
+node [fontname="times-roman"];
+edge [fontname="times-roman"];
+Sequence [fillcolor=orange, fontcolor=black, fontsize=9, label=Sequence, shape=box, style=filled];
+Fallback [fillcolor=cyan, fontcolor=black, fontsize=9, label=Fallback, shape=octagon, style=filled];
+Sequence -> Fallback;
+isGripper0 [fillcolor=gray, fontcolor=black, fontsize=9, label=isGripper0, shape=ellipse, style=filled];
+Fallback -> isGripper0;
+OpenGripper [fillcolor=gray, fontcolor=black, fontsize=9, label=OpenGripper, shape=ellipse, style=filled];
+Fallback -> OpenGripper;
+"Sequence*" [fillcolor=orange, fontcolor=black, fontsize=9, label="Sequence*", shape=box, style=filled];
+Sequence -> "Sequence*";
+"OpenGripper*" [fillcolor=gray, fontcolor=black, fontsize=9, label="OpenGripper*", shape=ellipse, style=filled];
+"Sequence*" -> "OpenGripper*";
+"Fallback*" [fillcolor=cyan, fontcolor=black, fontsize=9, label="Fallback*", shape=octagon, style=filled];
+"Sequence*" -> "Fallback*";
+isHoldHandle [fillcolor=gray, fontcolor=black, fontsize=9, label=isHoldHandle, shape=ellipse, style=filled];
+"Fallback*" -> isHoldHandle;
+"Sequence**" [fillcolor=orange, fontcolor=black, fontsize=9, label="Sequence**", shape=box, style=filled];
+"Fallback*" -> "Sequence**";
+CreateDoorPath1 [fillcolor=gray, fontcolor=black, fontsize=9, label=CreateDoorPath1, shape=ellipse, style=filled];
+"Sequence**" -> CreateDoorPath1;
+MMApproachDoor [fillcolor=gray, fontcolor=black, fontsize=9, label=MMApproachDoor, shape=ellipse, style=filled];
+"Sequence**" -> MMApproachDoor;
+MMMoveLinear1 [fillcolor=gray, fontcolor=black, fontsize=9, label=MMMoveLinear1, shape=ellipse, style=filled];
+"Sequence**" -> MMMoveLinear1;
+ClosedGripper [fillcolor=gray, fontcolor=black, fontsize=9, label=ClosedGripper, shape=ellipse, style=filled];
+"Sequence**" -> ClosedGripper;
+"OpenGripper**" [fillcolor=gray, fontcolor=black, fontsize=9, label="OpenGripper**", shape=ellipse, style=filled];
+"Sequence*" -> "OpenGripper**";
+isDoorTraversal [fillcolor=gray, fontcolor=black, fontsize=9, label=isDoorTraversal, shape=ellipse, style=filled];
+"Sequence*" -> isDoorTraversal;
+}
