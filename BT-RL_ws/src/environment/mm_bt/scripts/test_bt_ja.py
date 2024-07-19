@@ -1,31 +1,12 @@
 #!/usr/bin/env python3
 
-"""
-Autonomy node for the TurtleBot3.
-This script relies on a YAML file of potential navigation locations, 
-which is listed as a `location_file` ROS parameter.
-Example usage:
-  ros2 run tb3_autonomy autonomy_node.py
-  ros2 run tb3_autonomy autonomy_node.py --ros-args -p location_file:=/path/to/my/file.yaml
-  ros2 run tb3_autonomy autonomy_node.py --ros-args -p tree_type:=queue -p target_color:=green
-"""
-
 import os
-# import yaml
-# import random
 import rclpy
 from rclpy.node import Node
-# import time
 import py_trees
 import py_trees_ros
-# from py_trees.common import OneShotPolicy
 from ament_index_python.packages import get_package_share_directory
-# from sensor_msgs.msg import LaserScan
 from rclpy.executors import MultiThreadedExecutor
-# from manipulator import Mobile_Manipulator
-# from manipulator_server import Gripper, ManipulatorJointMode
-# from navigation_server import NavigationTo, GetLocationFromQueue
-# from vision import FindTheDoorNode, CreateDoorPath
 default_location_file = os.path.join(
     get_package_share_directory("mm_bt"),
     "config", "locations.yaml")
@@ -33,19 +14,8 @@ default_location_file = os.path.join(
 import py_trees
 import py_trees.display
 from std_msgs.msg import *
-# from action_msgs.msg import GoalStatus
-# from rclpy.action import ActionClient
-# from nav2_msgs.action import NavigateToPose
-# from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
-# from geometry_msgs.msg import PoseArray,PoseWithCovarianceStamped
-# from control_msgs.msg import DynamicJointState
-# from builtin_interfaces.msg import Duration
-# import numpy as np
-# from mm_bt.srv import CheckDoor
-# from mm_bt.action import MMControl
 from behaviours_condition_simulate import *
 from behaviours_action_simulate import *
-# from sensor_msgs.msg import Range
 from msg_interface.srv import GenBT
 
 from rclpy.task import Future
@@ -75,21 +45,11 @@ class AutonomyBehavior(Node):
 
         self.behavior_status = String()
         self.behavior_status_sub = self.create_subscription(String,'/behavior_status', self.behavior_status_callback, 10)
-        # self.action_num_sub = self.create_subscription(Int32,'/action_num', self.action_num_callback, 10)
         self.action_num = Int32()
         self.action_num = num_action
 
         self.find_aruco_pub = self.create_publisher(String,'is_find_aruco',10)
-        # self.robot_pose_sub = self.create_subscription(Float32MultiArray,'robot_pose',self.robot_pose_callback,10)
-        # self.robot_pose_pub = self.create_publisher(Float32MultiArray,'robot_pose',10)
-        # self.robot_pose = []
 
-        # self.can_create_path_pub = self.create_publisher(Bool,'can_create_path', 10)
-        # self.get_create_path_sub = self.create_subscription(Bool,'get_create_path',self.get_create_path_callback,10)
-        # self.get_create_path = False
-
-        # self.find_aruco_sub = self.create_subscription(String,'is_find_aruco',self.find_aruco_callback, 10)
-        # self.has_door_path_sub = self.create_subscription(String,'has_door_path',self.has_door_path_callback,10)
         self.gripper_status_sub = self.create_subscription(String,'gripper_status',self.gripper_status_callback,10)
         self.robot_pose_sub = self.create_subscription(Float32MultiArray,'robot_pose',self.robot_pose_callback,10)
         self.gripper_base_pose_sub = self.create_subscription(Float32MultiArray,'gripper_base_pose',self.gripper_base_pose_callback,10)
@@ -108,22 +68,10 @@ class AutonomyBehavior(Node):
         """ Create behavior tree by picking a next location from a queue """
 
         initial = ['s(',
-                        # 's(',
-                        #     {"command":"2bb", "topic_name":"/mm_state/manipulability", "type":Float64, "blackboard_variables":"d"},
-                        #     {"command":"2bb", "topic_name":"/mm_state/odom_eff", "type":PoseStamped, "blackboard_variables":"odom_eff"},
-                        #     {"command":"2bb", "topic_name":"/mm_state/odom_base", "type":PoseStamped, "blackboard_variables":"odom_base"},
-                        #     {"command":"2bb", "topic_name":"/mm_state/base_eff", "type":PoseStamped, "blackboard_variables":"base_eff"},
-                        #     {"command":"2bb", "topic_name":"/mm_state/base_odom", "type":PoseStamped, "blackboard_variables":"base_odom"},
-                        #     {"command":"2bb", "topic_name":"/mm_state/base_camera", "type":PoseStamped, "blackboard_variables":"base_camera"},
-                        #     {"command":"2bb", "topic_name":"/mm_state/aruco_markers", "type":ArucoMarkers, "blackboard_variables":"aruco_markers"},
-                        #     {"command":"2bb", "topic_name":"/dynamic_joint_states", "type":DynamicJointState, "blackboard_variables":"dynamic_joint_states"},
-                        # ')',
-                        # {"command":"MMMoveJoint", "name":"01" ,"joint":[0.0,-1.6,2.3,-0.75,1.57,-1.57]},
                         'f(',
                             {"command":"isGripper", "name":"0", "state":"Open"},
                             {"command":"OpenGripper"},
                         ')',
-                        # {"command":"NavigateTo", "name":"Door1" ,"pose":[-2.0, -1.5, -2.1]},
                 ]
         
         individual = []
@@ -169,12 +117,9 @@ class AutonomyBehavior(Node):
             else:
                 #Node is a leaf/action node - add to parent, then keep looking for siblings
                 node.add_child(newnode)
-
-        #This return is only reached if there are too few up nodes
         return node
 
     def get_node_from_string(self, string, ros):
-        # pylint: disable=too-many-branches
         """
         Returns a py trees behavior or composite given the string
         """
@@ -256,8 +201,6 @@ class AutonomyBehavior(Node):
     def execute(self, period=0.01):
         """ Executes the behavior tree at the specified period. """
         self.tree.tick_tock(period_ms=period*1000.0)
-        # rclpy.spin_once(self.tree.node, executor=self.executor_tree)
-        # rclpy.spin(self.tree.node, executor=self.executor_tree)
         
         '''especially for hold handle subtask'''
         find_aruco = "True"
@@ -265,14 +208,8 @@ class AutonomyBehavior(Node):
         find_aruco_string.data = find_aruco
         self.find_aruco_pub.publish(find_aruco_string)
 
-        # print("get create path: ",self.get_create_path)
-        # if self.get_create_path == False:
-        #     self.can_create_path_pub.publish(Bool(data=True))
-        
-
         future = self.spin_future()
         rclpy.spin_until_future_complete(self.tree.node,future)
-        # print("Do spin_once!!")
         return self.behavior_status, self.door_traversal, self.hold_handle_status, self.door_status, self.gripper_status, self.robot_pose, self.gripper_base_pose
         
     def spin_future(self) -> Future:
@@ -285,8 +222,6 @@ class AutonomyBehavior(Node):
           of the Request type of the provided service when the client was
           constructed.
         """
-        # if not isinstance(request, self.srv_type.Request):
-        #     raise TypeError()
         print("Do spin_future!!")
 
         with self._lock:
@@ -312,22 +247,8 @@ class AutonomyBehavior(Node):
             self.get_create_path = False
             print("Do behavior_status_callback!!")
 
-    # def action_num_callback(self, msg):
-    #     self.action_num = msg
-
-    # def robot_pose_callback(self, msg):
-    #     self.robot_pose = msg.data
-
     def get_create_path_callback(self, msg):
         self.get_create_path = msg.data
-
-    # def find_aruco_callback(self, msg):
-    #     print("BT find_aruco callback:",msg.data)
-    #     self.find_aruco = msg.data
-    
-    # def has_door_path_callback(self, msg):
-    #     print("BT has_door_path callback:",msg.data)
-    #     self.has_door_path = msg.data
 
     def gripper_status_callback(self, msg):
         print("BT gripper_status callback:",msg.data)
@@ -362,16 +283,6 @@ class GenBehaviorTree(Node):
         self.behavior = None
         self.tree = None
         self.ready_pub = self.create_publisher(Bool, "/ready", 10)
-        # self.init_pose_pub = self.create_publisher(PoseWithCovarianceStamped, "/initialpose", 10)
-        # self.init_pose_req = PoseWithCovarianceStamped()
-        # self.init_pose_req.header.frame_id = "map"
-        # self.init_pose_req.pose.pose.position.x = -2.0
-        # self.init_pose_req.pose.pose.position.y = -1.5
-        # self.init_pose_req.posepub_toggle.pose.position.z = 0.0
-        # self.init_pose_req.pose.pose.orientation.x = 0.0
-        # self.init_pose_req.pose.pose.orientation.y = 0.0
-        # self.init_pose_req.pose.pose.orientation.z = -0.8674231767654419 
-        # self.init_pose_req.pose.pose.orientation.w = 0.49757108092308044
         self.start = False
 
         self.iteration = 0
@@ -412,8 +323,6 @@ class GenBehaviorTree(Node):
             self.start = True
             self.generator()
             self.count_check += 0
-        # print("get_topic_toggle:",self.get_topic_toggle)
-        # print("pub_toggle:",self.pub_toggle)
 
         self.count_check += 1
 
@@ -427,8 +336,6 @@ class GenBehaviorTree(Node):
                 door_traversal_status.data = "FAILURE"
             self.door_traversal_status_pub.publish(door_traversal_status)
 
-            # print("Do get_topic_toggle!!-> behavior_data: ",self.behavior_data,", door_traversal_status: ",self.door_traversal)
-
             if self.hold_handle_status == '':
                 self.hold_handle_status = 'FAILURE'
             self.hold_handle_pub.publish(String(data=self.hold_handle_status))
@@ -436,13 +343,11 @@ class GenBehaviorTree(Node):
             self.gripper_status_pub.publish(String(data=self.gripper_status))
 
             robot_pose = Float32MultiArray()
-            robot_pose.data = self.robot_pose
-            # self.get_logger().info("Robot pose: {}".format(robot_pose.data))
+            robot_pose.data = self.robot_poses
             self.robot_pose_pub.publish(robot_pose)
             
             gripper_base_pose = Float32MultiArray()
             gripper_base_pose.data = self.gripper_base_pose
-            # self.get_logger().info("Gripper pose: {}".format(gripper_base_pose.data))
             self.gripper_base_pose_pub.publish(gripper_base_pose)
 
             if self.pub_toggle:
@@ -457,14 +362,8 @@ class GenBehaviorTree(Node):
             self.door_traversal_status_pub.publish(String(data='FAILURE'))
             self.count_check = 0
             if self.pub_toggle:
-                # print("Pub_toggle is True!!")
                 self.get_topic_toggle = False
                 self.pub_toggle_pub.publish(Bool(data=False))
-
-        # else:
-        #     if self.start == False:
-        #         self.init_pose_pub.publish(self.init_pose_req)
-        #         self.get_logger().info("Initial pose has been published")
 
     def gen_bt_callback(self, request, response):
         self.gen_toggle = True
@@ -498,19 +397,10 @@ class GenBehaviorTree(Node):
         self.gen_toggle = False
         ready.data = True
         self.ready_pub.publish(ready)
-        # print("Do execute bt!!")
-        # print('hold handle status:',self.hold_handle_status)
-        # if self.hold_handle_status == "FAILURE":
-        #     print("autonomy_node6 destroied")
-        #     self.gen_toggle = False
-        #     self.behavior.destroy_node()
-        #     self.behavior = None
-        #     self.tree = None
 
     def pub_toggle_callback(self, msg):
         self.pub_toggle = msg.data
         
-
 if __name__=="__main__":   
     rclpy.init()
     gen_behavior = GenBehaviorTree()

@@ -203,12 +203,11 @@ class RobotController(Node):
             reset_status = String()
             reset_status.data = "INIT"
             self.door_traversal_status_pub.publish(reset_status)
-            # self.reset_gazebo()
             self.future.set_result(self.result)
 
         elif self.door_traversal == "FAILURE" and self.num_action.data < num_action_max and self.gen_toggle == True:
             print("!! Add BT !!")
-            self.get_logger().info("self.ready.data:"+str(self.ready.data))
+            # self.get_logger().info("self.ready.data:"+str(self.ready.data))
             if self.ready.data == True:
                 self.BT_status = self.door_traversal
                 reset_status = String()

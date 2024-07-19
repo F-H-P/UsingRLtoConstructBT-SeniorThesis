@@ -36,7 +36,7 @@ import time
 # from nav2_simple_commander.robot_navigator import BasicNavigator
 from sensor_msgs.msg import *
 
-class CreateDoorPath(py_trees.behaviour.Behaviour): ## 1
+class CreateDoorPath(py_trees.behaviour.Behaviour):
     def __init__(self, name, node, id):
         """Initialise with a behaviour name."""
         super(CreateDoorPath, self).__init__(name)
@@ -53,14 +53,9 @@ class CreateDoorPath(py_trees.behaviour.Behaviour): ## 1
 
         self.failure_tick = 0
         self.hold_handle_status =String()
-        # self.hold_handle_pub = self.node.create_publisher(String,'/hold_handle_status', 10)
         self.behavior_status = String()
         self.behavior_status_pub = self.node.create_publisher(String,'/behavior_status', 10)
         self.logger.info("Do create door path!!")
-
-        # self.can_create_path_sub = self.node.create_subscription(Bool,'can_create_path',self.can_create_path_callback, 10)
-        # self.can_create_path = None
-        # self.get_create_path_pub = self.node.create_publisher(Bool,'get_create_path',10)
 
         self.robot_pose_sub = self.node.create_subscription(Float32MultiArray,'/robot_pose',self.robot_pose_callback, 10)
         self.robot_pose = Float32MultiArray()
@@ -108,13 +103,6 @@ class CreateDoorPath(py_trees.behaviour.Behaviour): ## 1
     def move_joint_callback(self,msg):
         self.move_joint = msg.data
         self.do_move_joint = True
-
-    # def can_create_path_callback(self,msg):
-    #     self.logger.info("Do can_create_path callback!!")
-    #     self.can_create_path = msg.data
-    #     self.get_create_path_pub.publish(Bool(data=True))
-    #     print("can create path: ", self.can_create_path)
-    #     print("pub get_create_path!!!")
     
     def update(self) -> py_trees.common.Status:
         print("Name: ", self.name)
@@ -123,7 +111,6 @@ class CreateDoorPath(py_trees.behaviour.Behaviour): ## 1
             self.behavior_status_pub.publish(self.behavior_status)
             return py_trees.common.Status.SUCCESS 
         
-        # self.logger.info("Do find_aruco loop update!!")
         # self.logger.info("is find marker: "+str(self.is_find_marker))
         # print("can create path: ", self.can_create_path)
         if self.do_robot_pose and self.do_gripper_pose and self.do_follow_trajectory and self.do_move_joint:
@@ -133,8 +120,6 @@ class CreateDoorPath(py_trees.behaviour.Behaviour): ## 1
             self.logger.info("robot_pose: "+str(self.robot_pose.data))
             self.logger.info("gripper_base_pose: "+str(self.gripper_base_pose.data))
             if self.is_find_marker and self.follow_trajectory == 'FAILURE' and self.move_joint == 'FAILURE' : #and \
-                # [round(self.robot_pose.data[0],1),round(self.robot_pose.data[1],1),round(self.robot_pose.data[2],1)] == [-2.0,-1.5,-1.8] and \
-                #     [round(self.gripper_base_pose.data[0],1),round(self.gripper_base_pose.data[1],1),round(self.gripper_base_pose.data[2],1)] == [0.4,0.1,0.1]:
                 has_door_path = String()
                 has_door_path.data = "True"
                 self.pub_has_door_path.publish(has_door_path)
@@ -168,118 +153,11 @@ class CreateDoorPath(py_trees.behaviour.Behaviour): ## 1
         self.logger.info(f"Terminated with status {new_status}")
         self.client = None
 
-# class CreateDoorPath(py_trees.behaviour.Behaviour): ## hold handle task
-#     def __init__(self, name, node, id):
-#         """Initialise with a behaviour name."""
-#         super(CreateDoorPath, self).__init__(name)
-#         self.node = node
-#         self.name = name+str(id)
-#         self.blackboard = py_trees.blackboard.Client(name="Global")
-#         self.blackboard.register_key(key=self.name, access=py_trees.common.Access.WRITE)
-#         self.blackboard.register_key(key="door_path", access=py_trees.common.Access.WRITE)
-
-#         self.find_aruco_toggle = self.node.create_subscription(String,'is_find_aruco',self.find_aruco_callback, 10) ## topic for check 'find aruco'
-#         self.blackboard.set(self.name, False)
-#         self.pub_has_door_path = self.node.create_publisher(String, 'has_door_path', 10)
-#         self.is_find_marker = False
-
-#         self.failure_tick = 0
-#         self.hold_handle_status =String()
-#         # self.hold_handle_pub = self.node.create_publisher(String,'/hold_handle_status', 10)
-#         self.behavior_status = String()
-#         self.behavior_status_pub = self.node.create_publisher(String,'/behavior_status', 10)
-#         self.logger.info("Do create door path!!")
-
-#         # self.can_create_path_sub = self.node.create_subscription(Bool,'can_create_path',self.can_create_path_callback, 10)
-#         # self.can_create_path = None
-#         # self.get_create_path_pub = self.node.create_publisher(Bool,'get_create_path',10)
-
-#         self.robot_pose_sub = self.node.create_subscription(Float32MultiArray,'/robot_pose',self.robot_pose_callback, 10)
-#         self.robot_pose = Float32MultiArray()
-#         # self.robot_pose.data = [-2.0,-1.5,-1.8]
-#         # self.do_robot_pose = False
-
-#         self.gripper_base_pose_pub = self.node.create_subscription(Float32MultiArray,'gripper_base_pose', self.gripper_base_pose_callback,10)
-#         self.gripper_base_pose = Float32MultiArray()
-#         # self.gripper_base_pose.data = [0.4,0.1,1.0,1.5,0.0,0.0]
-#         # self.do_gripper_pose = False
-
-#         # self.follow_trajectory_sub = self.node.create_publisher(String, "/follow_trajectory_status",self.follow_trajectory_callback, 10)
-#         # self.follow_trajectory = "FAILURE"
-#         # self.do_follow_trajectory = False
-
-#     def initialise(self) -> None:
-#         """Backup and set a new context.""" 
-#         self.logger.debug("%s.initialise()[switch context]" % (self.__class__.__name__))
-#         self.init_time = time.time()
-
-#     def find_aruco_callback(self,msg):
-#         self.logger.info("Do find_aruco callback!!")
-#         if msg.data == "True":
-#             self.is_find_marker = True
-#             self.logger.info("find_aruco")
-#         else:
-#             self.is_find_marker = False
-
-#     def robot_pose_callback(self,msg):
-#         self.robot_pose = msg
-#         self.do_robot_pose = True
-    
-#     def gripper_base_pose_callback(self,msg):
-#         self.gripper_base_pose = msg
-#         self.do_gripper_pose = True
-
-#     def follow_trajectory_callback(self,msg):
-#         self.follow_trajectory = msg.data
-#         self.do_follow_trajectory = True
-
-#     # def can_create_path_callback(self,msg):
-#     #     self.logger.info("Do can_create_path callback!!")
-#     #     self.can_create_path = msg.data
-#     #     self.get_create_path_pub.publish(Bool(data=True))
-#     #     print("can create path: ", self.can_create_path)
-#     #     print("pub get_create_path!!!")
-    
-#     def update(self) -> py_trees.common.Status:
-#         print("Name: ", self.name)
-#         if self.blackboard.get(self.name) == True:
-#             self.behavior_status.data = "Success"
-#             self.behavior_status_pub.publish(self.behavior_status)
-#             return py_trees.common.Status.SUCCESS 
-        
-#         # self.logger.info("Do find_aruco loop update!!")
-#         # self.logger.info("is find marker: "+str(self.is_find_marker))
-#         # print("can create path: ", self.can_create_path)
-        
-#         if self.is_find_marker: 
-#             has_door_path = String()
-#             has_door_path.data = "True"
-#             self.pub_has_door_path.publish(has_door_path)
-#             self.failure_tick = 0
-#             self.blackboard.set(self.name, True)
-#             self.behavior_status.data = "Success"
-#             self.behavior_status_pub.publish(self.behavior_status)
-#             self.logger.info("behavior_status SUCCESS: "+str(self.behavior_status))
-#             return py_trees.common.Status.SUCCESS
-#         else:
-#             self.failure_tick += 1
-
-#         if self.failure_tick >= 50:
-#             self.behavior_status.data = "FAILURE"
-#             self.behavior_status_pub.publish(self.behavior_status)
-#             self.logger.info("behavior_status FAILURE: "+str(self.behavior_status))
-#         return py_trees.common.Status.FAILURE
-
-#     def terminate(self, new_status: py_trees.common.Status) -> None:
-#         self.logger.info(f"Terminated with status {new_status}")
-#         self.client = None
-
-class Gripper(py_trees.behaviour.Behaviour): ## 1
+class Gripper(py_trees.behaviour.Behaviour):
     """ Wrapper behavior around the `move_base` action client """
 
     def __init__(self, name, command ,node):
         super(Gripper, self).__init__(name)
-        # self.pose = pose
         self.node = node
         self.command = command
         self.behavior_status = String()
@@ -302,7 +180,7 @@ class Gripper(py_trees.behaviour.Behaviour): ## 1
     def terminate(self, new_status):
         self.logger.info(f"Terminated with status {new_status}")
 
-class NavigationTo(py_trees.behaviour.Behaviour): ## 1
+class NavigationTo(py_trees.behaviour.Behaviour):
     """Wrapper behavior around the `move_base` action client"""
 
     def __init__(self, name, pose, node):
@@ -375,7 +253,7 @@ class NavigationTo(py_trees.behaviour.Behaviour): ## 1
     def terminate(self, new_status):
         self.logger.info(f"Terminated with status {new_status}")
 
-class MobileBaseControl(py_trees.behaviour.Behaviour): ## 1
+class MobileBaseControl(py_trees.behaviour.Behaviour):
 
     def __init__(
             self,
@@ -497,11 +375,10 @@ class MobileBaseControl(py_trees.behaviour.Behaviour): ## 1
         self.logger.info(f"Terminated with status {new_status}")
         self.feedback_message = "cleared"
 
-class MMApproachDoor(py_trees.behaviour.Behaviour): ## 1
+class MMApproachDoor(py_trees.behaviour.Behaviour):
     """Wrapper behavior around the `move_base` action client"""
     def __init__(self, name, taskspace ,node):
         super(MMApproachDoor, self).__init__(name)
-        # self.pose = pose
         self.client = None
         self.node = node
         self.blackboard = py_trees.blackboard.Blackboard()
@@ -527,9 +404,6 @@ class MMApproachDoor(py_trees.behaviour.Behaviour): ## 1
         self.is_start = True
 
     def update(self):
-        """ Checks for the status of the navigation action """
-        # If there is a result, we can check the status of the action directly.
-        # Otherwise, the action is still running.
         robot_pose = Float32MultiArray()
         robot_pose.data = [-1.9, -2.2, -1.4]
         self.behavior_status.data = "Success"
@@ -542,10 +416,7 @@ class MMApproachDoor(py_trees.behaviour.Behaviour): ## 1
 
         if self.has_door_path != "None":
             if self.has_door_path == "True":
-                # robot_pose = Float32MultiArray()
-                # robot_pose.data = [-1.9, -2.2, -1.4]
                 self.robot_pose_pub.publish(robot_pose)
-                # self.behavior_status.data = "Success"
                 self.behavior_status_pub.publish(self.behavior_status)
                 self.can_create_path_pub.publish(Bool(data=False))
                 return py_trees.common.Status.SUCCESS 
@@ -563,22 +434,16 @@ class MMApproachDoor(py_trees.behaviour.Behaviour): ## 1
     def terminate(self, new_status):
         self.logger.info(f"Terminated with status {new_status}")
 
-class MMMoveJoint(py_trees.behaviour.Behaviour): ## 1
+class MMMoveJoint(py_trees.behaviour.Behaviour):
     """Wrapper behavior around the `move_base` action client"""
 
     
     def __init__(self, name, joint ,node):
         super(MMMoveJoint, self).__init__(name)
-        # self.pose = pose
-        # self.client = None
         self.node = node
         self.blackboard = py_trees.blackboard.Blackboard()
-        # self.command = joint
-        # self.blackboard = py_trees.blackboard.Client(name="Global")
         self.name = name
         self.blackboard.set(self.name, False)
-
-        # self.is_start = False
 
         self.behavior_status = String()
         self.behavior_status_pub = self.node.create_publisher(String,'/behavior_status', 10)
@@ -602,7 +467,6 @@ class MMMoveJoint(py_trees.behaviour.Behaviour): ## 1
         self.do_gripper_status = True
 
     def initialise(self):
-        """ Sends the initial navigation action goal """
         if self.blackboard.get(self.name):
             return py_trees.common.Status.SUCCESS
 
@@ -637,9 +501,8 @@ class MMMoveJoint(py_trees.behaviour.Behaviour): ## 1
     def terminate(self, new_status):
         self.logger.info(f"Terminated with status {new_status}")
         self.client = None
-        # self.bb.set("target_pose", None)
 
-class MMMoveLinear(py_trees.behaviour.Behaviour): ## 1
+class MMMoveLinear(py_trees.behaviour.Behaviour):
     """Wrapper behavior around the `move_base` action client"""
 
     def __init__(self, name, taskspace ,node):
@@ -681,7 +544,6 @@ class MMMoveLinear(py_trees.behaviour.Behaviour): ## 1
             self.can_create_path_pub.publish(Bool(data=False))
             return py_trees.common.Status.SUCCESS 
 
-        # print("Is MoveL start:", self.blackboard.get(self.name+str("_is_start")))  
         self.logger.info("Robot pose:"+str(self.robot_pose.data))
         if self.has_door_path == "True":
             if self.robot_pose.data != [0.0,0.0,0.0]:
@@ -701,17 +563,13 @@ class MMMoveLinear(py_trees.behaviour.Behaviour): ## 1
                         self.behavior_status.data = "FAILURE"
                         self.behavior_status_pub.publish(self.behavior_status)
                     return py_trees.common.Status.FAILURE
-            # else:
-            #     return py_trees.common.Status.RUNNING
+
         else:
-            # self.response = "FAILURE"
             self.failure_tick += 1
             if self.failure_tick >= 10:
                 self.behavior_status.data = "FAILURE"
                 self.behavior_status_pub.publish(self.behavior_status)
             return py_trees.common.Status.FAILURE
-        
-        # return py_trees.common.Status.RUNNING
 
     def terminate(self, new_status):
         self.logger.info(f"Terminated with status {new_status}")

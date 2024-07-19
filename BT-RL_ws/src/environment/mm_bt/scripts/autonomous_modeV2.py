@@ -1,15 +1,5 @@
 #!/usr/bin/env python3
 
-"""
-Autonomy node for the TurtleBot3.
-This script relies on a YAML file of potential navigation locations, 
-which is listed as a `location_file` ROS parameter.
-Example usage:
-  ros2 run tb3_autonomy autonomy_node.py
-  ros2 run tb3_autonomy autonomy_node.py --ros-args -p location_file:=/path/to/my/file.yaml
-  ros2 run tb3_autonomy autonomy_node.py --ros-args -p tree_type:=queue -p target_color:=green
-"""
-
 import os
 # import yaml
 # import random
@@ -293,12 +283,8 @@ class AutonomyBehavior(Node):
                 node = Gripper(name = "ClosedGripper", command="Closed" ,node= ros) 
             elif command == "NavigateTo":
                 node = NavigationTo(string["name"], string["pose"], ros) 
-            # elif command == "IsArrived":
-            #     node = IsArrived("IsArrived", string["pose"], ros) 
             elif command == "CreateDoorPath":
                 node = CreateDoorPath(name = "CreateDoorPath", id=string["id"] ,node= ros) 
-            # elif command == "RotateForBetterView":
-            #     node = RotateForBetterView(name = "RotateForBetterView", id=string["id"] ,node= ros) 
             elif command == "MMApproachDoor":
                 node = MMApproachDoor(name = "MMApproachDoor", taskspace=None ,node= ros) 
             elif command == "MMMoveJoint":
@@ -307,20 +293,12 @@ class AutonomyBehavior(Node):
                 node = MMMoveLinear(name = "MMMoveLinear" + string["name"], taskspace=None, node= ros) 
             elif command == "MMFollowTrajectory":
                 node = MMFollowTrajectory(name = "MMFollowTrajectory", node= ros) 
-            # elif command == "NavigationCancelGoal":
-            #     node = NavigationCancelGoal( name="NavigationCancelGoal", node= ros )
-            # elif command == "NavigationToCheckAruco":
-            #     node = NavigationToCheckAruco( name="NavigationToCheckAruco", pose=string["pose"], node= ros, id=string["id"])
             elif command == "MobileBaseControl":
                 node = MobileBaseControl( name="MobileBaseControl" + string["name"], node=ros, mode=string["mode"] )
             elif command == "tf2bb":
                 node = py_trees_ros.transforms.ToBlackboard(name="", variable_name="test", target_frame="base_link", source_frame="map", qos_profile=py_trees_ros.utilities.qos_profile_unlatched())
             elif command == "isFindMarker":
                 node = isFindMarker( name="isFindMarker"+string["name"] ,node=ros, id=string["id"])
-            # elif command == "isArrived":
-            #     node = isArrived( name="isArrived" + string["name"], node=ros)
-            # elif command == "isAchived":
-            #     node = isAchived( name="isAchived" + string["name"], node=ros)
             elif command == "isGripper":
                 node = isGripper( name="isGripper" + string["name"], state = string["state"], node=ros)
             elif command == "isPathExists":
@@ -332,9 +310,6 @@ class AutonomyBehavior(Node):
                 
             elif command == "isDoorTraversal":
                 node = isDoorTraversal(name="isDoorTraversal", node=ros)
-                
-            # elif command == "Running":
-            #     node = Running(name="Running", node=ros, state=False)
 
         elif string == 'f(':
             node = py_trees.composites.Selector('Fallback', memory=False)
@@ -372,19 +347,12 @@ class AutonomyBehavior(Node):
     def execute(self, period=0.01):
         """ Executes the behavior tree at the specified period. """
         self.tree.tick_tock(period_ms=period*1000.0)
-        # rclpy.spin_once(self.tree.node, executor=self.executor_tree)
-        # rclpy.spin(self.tree.node, executor=self.executor_tree)
         
         '''especially for hold handle subtask'''
         find_aruco = "True"
         find_aruco_string = String()
         find_aruco_string.data = find_aruco
         self.find_aruco_pub.publish(find_aruco_string)
-
-        # print("get create path: ",self.get_create_path)
-        # if self.get_create_path == False:
-        #     self.can_create_path_pub.publish(self.can_create_path)
-        #     print("pub can_create_path!!")
         
         future = self.spin_future()
         rclpy.spin_until_future_complete(self.tree.node,future)
@@ -415,6 +383,7 @@ class AutonomyBehavior(Node):
     #     if self.hold_handle_status == "FAILURE" and self.action_num.data <= num_action_max:
     #         self.future.set_result(self.result)
     #         # print("Do hold_handle_callback!!")
+
     def door_traversal_callback(self, msg):
         print("door_traversal:",msg.data)
         self.door_traversal = msg.data
@@ -427,7 +396,6 @@ class AutonomyBehavior(Node):
         self.behavior_status = msg
         if self.behavior_status.data == "FAILURE" or self.door_traversal == "SUCCESS" :
             self.future.set_result(self.result)
-            # print("Do behavior_status_callback!!")
 
     def get_create_path_callback(self, msg):
         self.get_create_path = msg.data
@@ -522,13 +490,6 @@ class TestNode(Node):
         self.get_logger().info("reset_topic success!!")
 
     def _get_information(self): 
-        #def get_info(self, gripper_pose):
-        # reture info that are used to compute the reward in dictionary type
-        """
-        "distance": math.dist(self._agent_location, self._target_location),
-        "laser": self._laser_reads,
-        "angle": self._theta
-        """
         behavior_status = 0
         BT_status = 0
         door_status = 0
@@ -609,30 +570,13 @@ class TestNode(Node):
 
         reward = reward_d+reward_pd+reward_s+reward_cb+reward_n
 
-        # returns[0]+=reward_d
-        # returns[1]+=reward_pd
-        # returns[2]+=reward_s
-        # returns[3]+=reward_cb
-        # returns[4]+=reward_n
-        # returns[5]+=reward
-
         '''------------------------------------------------------------'''
-        
-        # reward = -(1.5*behavior_status)+(10.0*BT_status)-(5.0*distance_handle_gripper)-1.0 #+(find_aruco*5.0)
-        # if reward < 0.0:
-        #     reward=reward*(self.step_num/2)
-        # else:
-        #     reward=reward/(self.step_num/2)
-
-        # self.get_logger().info("behavior status:"+str(behavior_status))
         self.d_old = dist_goal_robot
         self.get_logger().info("reward:"+str(reward))
         return reward
 
     def behavior_status_callback(self, msg):
         self.behavior_data = msg
-        # self.get_logger().info("Behavior_status: "+str(self.behavior_data))
-        # self.get_logger().info("Do behavior status callback!!!!")
 
     # def hold_handle_callback(self, msg):
     #     self.BT_status = msg.data
@@ -651,30 +595,6 @@ class TestNode(Node):
     def cal_distance(self, parent_pose, child_pose):
         distance = np.abs(math.sqrt((parent_pose[0] - child_pose[0])**2 + (parent_pose[1] - child_pose[1])**2 + (parent_pose[2] - child_pose[2])**2))
         return distance
-    
-    # def cal_reward(self, info):
-        # self.get_logger().info("OpenDoorEnv: cal_reward")
-        # behavior_status = info["behavior_status"]
-        # BT_status = info["BT_status"]
-        # distance_handle_gripper = info["distance_handle_gripper"]
-        # find_aruco = info["find_aruco"]
-
-        # print("behavior_status:",behavior_status)
-        # print("BT_status:",BT_status)
-        # print("distance_handle_gripper:",distance_handle_gripper)
-
-        # reward = 0
-        # print("step num: ",self.step_num)
-        # # reward = (-(1.5*behavior_status)+(10.0*BT_status)-(3.0*distance_handle_gripper)-1.0)
-        # print("reward before use step_num: ",reward)
-        # reward = -(2.5*behavior_status)+(10.0*BT_status)-(3.0*distance_handle_gripper)-1.0+(find_aruco*5.0)
-        # if reward < 0.0:
-        #     reward=reward*(self.step_num/2)
-        # else:
-        #     reward=reward/(self.step_num/2)
-
-        # self.get_logger().info("reward:"+str(reward))
-        # return reward
 
     def run(self):
         print("DO RUN!!")

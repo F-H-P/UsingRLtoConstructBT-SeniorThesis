@@ -105,10 +105,6 @@ class isFindMarker(py_trees.behaviour.Behaviour):
         self.start_time = self.node.get_clock().now()
         self.t = time.time()
         self.pre_time = None
-        # if self.blackboard.get(self.name):
-        #     return py_trees.common.Status.SUCCESS
-    # def robot_pose_callback(self, msg):
-    #     self.robot_pose = msg
     
     def robot_pose_aruco_callback(self, msg):
         self.robot_pose_aruco = msg.data
@@ -130,16 +126,10 @@ class isFindMarker(py_trees.behaviour.Behaviour):
             gripper_P = self.gripper_base_pose.data[4]
             gripper_Y = self.gripper_base_pose.data[5]
 
-        # print("robot_pose_aruco:", self.robot_pose_aruco)
         if self.robot_pose_aruco != None:
             self.node.get_logger().info("robot_pose_aruco:"+str(self.robot_pose_aruco))
             if round(float(self.robot_pose_aruco[0]),1) == -2.0 and round(float(self.robot_pose_aruco[1]),1) == -1.5 and round(float(self.robot_pose_aruco[2]),1) >= -1.9 and round(float(self.robot_pose_aruco[2]),1) <= -1.7:
-                self.node.get_logger().info("Do1!")
                 if round(float(gripper_x),1) == 0.4 and round(float(gripper_y),1) == 0.1 and round(float(gripper_z),1) == 1.0 and round(float(gripper_R),1) == 1.5 and round(float(gripper_P),1) == 0.0 and round(gripper_Y,1) == 0.0:
-                    # random_num = random.random()
-                    self.node.get_logger().info("Do2!")
-                    # print("random_num:", random_num)
-                    # if random_num <= 0.7:
                     self.blackboard.set(self.name, True)
                     self.find_aruco = "True"
                     self.find_aruco_pub.publish(String(data=self.find_aruco))
@@ -147,8 +137,6 @@ class isFindMarker(py_trees.behaviour.Behaviour):
                     self.behavior_status_pub.publish(self.behavior_status)
                     self.robot_pose_pub.publish(self.robot_pose)
                     return py_trees.common.Status.SUCCESS
-                    # else:
-                    #     self.failure_tick += 1
             else:
                 self.failure_tick += 1
         else:
@@ -161,11 +149,8 @@ class isFindMarker(py_trees.behaviour.Behaviour):
             self.find_aruco = "False"
             self.find_aruco_pub.publish(String(data=self.find_aruco))
             return py_trees.common.Status.SUCCESS
-        
-        # return py_trees.common.Status.RUNNING
 
     def terminate(self, new_status: py_trees.common.Status) -> None:
-        
         self.logger.info(f"Terminated with status {new_status}")
         self.client = None
 
@@ -203,8 +188,6 @@ class isGripper(py_trees.behaviour.Behaviour):
             self.behavior_status_pub.publish(self.behavior_status)
             return py_trees.common.Status.SUCCESS
         else:
-            # self.behavior_status.data = "Success"
-            # self.behavior_status_pub.publish(self.behavior_status)
             return py_trees.common.Status.FAILURE
 
     def terminate(self, new_status: py_trees.common.Status) -> None: 
@@ -236,8 +219,6 @@ class isHoldHandle(py_trees.behaviour.Behaviour):
 
         self.behavior_status_pub = self.node.create_publisher(String,'/behavior_status', 10)
 
-        # self.do_gripper_status_callback = False
-        # self.do_gripper_pose_callback = False
 
     def initialise(self):
         """ Sends the initial navigation action goal """
@@ -245,9 +226,7 @@ class isHoldHandle(py_trees.behaviour.Behaviour):
         try:
             if self.door_path == None:
                 door_path = self.blackboard.get("door_path") ## get door path from blackboard
-                # print("door_path:", door_path)
                 self.door_path = door_path.poses[0]
-                # print(self.taskspace)
         except:
             self.have_door_path = False
     
@@ -257,7 +236,6 @@ class isHoldHandle(py_trees.behaviour.Behaviour):
 
     def gripper_base_pose_callback(self, msg):
         self.gripper_pose = msg
-        # self.do_gripper_pose_callback = True
     
     def update(self) -> py_trees.common.Status:
 
@@ -266,9 +244,7 @@ class isHoldHandle(py_trees.behaviour.Behaviour):
             self.behavior_status_pub.publish(String(data="Success"))
             return py_trees.common.Status.SUCCESS  
         
-        # if self.do_gripper_status_callback and self.do_gripper_pose_callback:
         if self.gripper_pose.data[0] != -1.0 and self.do_gripper_status_callback:
-            # if self.gripper_pose.data[3] != 0.0:
             gripper_x = self.gripper_pose.data[0]
             gripper_y = self.gripper_pose.data[1]
             gripper_z = self.gripper_pose.data[2]
@@ -295,10 +271,6 @@ class isHoldHandle(py_trees.behaviour.Behaviour):
                 self.hold_handle_status.data = "FAILURE"
                 self.hold_handle_status_pub.publish(self.hold_handle_status)
                 return py_trees.common.Status.FAILURE
-            # else:
-            #     self.hold_handle_status.data = "FAILURE"
-            #     self.hold_handle_status_pub.publish(self.hold_handle_status)
-            #     return py_trees.common.Status.FAILURE
     
     def terminate(self, new_status: py_trees.common.Status) -> None:
         self.logger.info(f"Terminated with status {new_status}")
@@ -329,7 +301,6 @@ class isCreateDoorPath(py_trees.behaviour.Behaviour):
 
     def gripper_base_pose_callback(self, msg):
         self.gripper_pose = msg
-        # self.do_gripper_pose_callback = True
     
     def has_door_path_callback(self, msg):
         if msg.data == "True":
@@ -337,7 +308,6 @@ class isCreateDoorPath(py_trees.behaviour.Behaviour):
         else:
             self.have_door_path = False
         self.do_has_door_path_callback = True
-        # print("have_door_path:", self.have_door_path)
         
     def update(self) -> py_trees.common.Status:
 

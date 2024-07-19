@@ -3,7 +3,6 @@
 import numpy as np
 import torch
 import random
-import pickle
 from collections import defaultdict
 
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
@@ -13,15 +12,12 @@ max_idx_action = 0
 retrain = 0
 
 def Q_learning(env, seed,episodes=1000, model=None, epsilon=1.0,filename='model.pt'):
-    UCB_dict = defaultdict(lambda: {'N':0.0} )
     returns = defaultdict(lambda: {'G':0.0, 'N':0.0} )
     init_BT_string = str([])
-    update_Q_memory = defaultdict(lambda: {'trajec_max':[], 'reward_max':-100.0, 'Q_num':0.0} )
 
     np.random.seed(seed)
 
     if not model:
-        # policy = create_random_policy(state_table,action_num)
         policy = create_policy()
         Q = {init_BT_string:policy}
         BT_string_dict = {}
@@ -35,8 +31,6 @@ def Q_learning(env, seed,episodes=1000, model=None, epsilon=1.0,filename='model.
 
         for key in returns_old.keys():
             returns[key] = returns_old[key]
-        # for key2 in model["UCB_dict"].keys():
-        #     UCB_dict[key2] = model["UCB_dict"][key2]
 
         BT_string_dict = model["BT_string_dict"]
         reward_report = model["reward_report"]
@@ -44,18 +38,9 @@ def Q_learning(env, seed,episodes=1000, model=None, epsilon=1.0,filename='model.
         trajectory_memory = model["trajectory_memory"]
         return_memory = model["return_memory"]
     
-    '''for retraining mode: must load learned returns and BT_string_dict'''
     for i_episode in range(episodes):
-        # Q_init = create_random_policy(state_table,action_num)
-        '''for debuging'''
-        if i_episode == 100:
-            pass
-
         Q_init = create_policy()
-        Q_new,BT_string_dict, returns, episode_reward, bt_length,trajectory,episode_return = run_BT(env,seed,Q,epsilon,BT_string_dict,Q_init,returns,UCB_dict) # Store state[Dict()], action[List] and reward[] respectively from start until terminate
-        # print("len episode a:",len(episode_SAR))
-        
-        # Q = cal_G(episode_SAR,returns,Q_new,update_Q_memory,trajectory,episode_reward)
+        Q_new,BT_string_dict, returns, episode_reward, bt_length,trajectory,episode_return = run_BT(env,seed,Q,epsilon,BT_string_dict,Q_init,returns)
         Q = Q_new
 
         '''update epsilon'''
@@ -70,13 +55,9 @@ def Q_learning(env, seed,episodes=1000, model=None, epsilon=1.0,filename='model.
         epsilon = 1/(((9.0*(i_episode+retrain))/(lr*(episodes+retrain)))+1)
         print("i_episode:",i_episode)
         print("epsilon:",epsilon)
-        # if epsilon < 0.2:
-        #     epsilon = 0.2
 
         if i_episode == episodes-1:
             epsilon = 0.0
-        # epsilon = 0.0
-        
             
         print("episode_reward: ",episode_reward)
 
@@ -97,84 +78,6 @@ def Q_learning(env, seed,episodes=1000, model=None, epsilon=1.0,filename='model.
         print("save model!!")
 
         print("-------------End episodes-------------")
-
-    return Q,returns,BT_string_dict,reward_report,action_num_report,trajectory_memory,return_memory
-
-def cal_G(episode_SAR,returns,Q_new,update_Q_memory,trajectory,episode_reward):
-    G = 0.0
-    discount_factor = 0.1
-    Q = Q_new.copy()
-    # state_list = []
-
-    for i in reversed(range(0, len(episode_SAR))):
-        [s_t, a_t, r_t_1] = episode_SAR[i] 
-
-        v = 0.0
-        key_list = get_state(s_t)
-
-        currentQ_dict = Q_new[s_t["BT_string"]][key_list[0]][key_list[1]][key_list[2]][key_list[3]][key_list[4]]
-        keys = currentQ_dict.keys()
-        
-        for key in keys:
-            v += currentQ_dict[key]
-        '''calculate G'''
-        G = discount_factor * v + r_t_1
-
-        state_action = state_action_str(s_t, a_t) # list of state_action
-        # state_action = str(state_action) ## change to -> [1,0,0,0,....,(2,0)]
-        is_first_visit = True
-
-        for j in range(0,i):
-
-            if tuple(episode_SAR[j][0]) == tuple(s_t) and tuple(episode_SAR[j][1]) == tuple(a_t):
-                is_first_visit = False
-                break
-
-        '''check first visit in the episode'''
-        if is_first_visit:
-            '''update returns'''
-            returns[state_action]['N'] += 1
-            returns[state_action]['G'] += G
-
-            '''update Q table'''
-            Q = update_Q(Q_new,s_t,a_t,returns[state_action])
-
-    # if trajectory != None: 
-    #     for l in reversed(range(0, len(trajectory))):
-    #         [s_t, a_t, r_t_1] = trajectory[l] 
-    #         is_first_visit = True
-    #         key_list = get_state(s_t)
-
-    #         if is_first_visit:
-    #             '''update Q_memory'''
-    #             state_list.append(s_t["BT_string"])
-    #             for k in range(5):
-    #                 state_list.append(key_list[k])
-    #             state_tuple = tuple(state_list)
-    #             # print("!!!!! Add Q mem:", state_tuple)
-
-    #             update_Q_memory[state_tuple]["Q_num"] += 1
-    #             if episode_reward > update_Q_memory[state_tuple]["reward_max"]:
-    #                 update_Q_memory[state_tuple]["reward_max"] = episode_reward
-    #                 update_Q_memory[state_tuple]["trajec_max"] = trajectory
-    #                 # print("!!!!! Buffer trajec max:", state_tuple)
-
-    #                 if update_Q_memory[state_tuple]["Q_num"]%31 == 30:
-    #                     ##update Q table
-    #                     discount_update = 0.85
-    #                     print("!!!!! Update Q mem:", state_tuple)
-
-    #                     for m in reversed(range(l, len(update_Q_memory[state_tuple]["trajec_max"]))):
-    #                         [s_t, a_t, r_t_1] = update_Q_memory[state_tuple]["trajec_max"][m] 
-
-    #                         '''calculate G'''
-    #                         G = discount_update * G + r_t_1
-    #                         if s_t["BT_string"] == state_tuple[0]:
-    #                             returns_dict = {'G':G, 'N':1.0}
-    #                             Q = update_Q(Q_new,s_t,a_t,returns_dict)
-    #                             break
-
-    return Q
 
 def create_random_policy(state_table, action_num):
     policy = {}
@@ -223,7 +126,7 @@ def policy_init(n_state,p):
         policy[key] = p
     return policy
 
-def run_BT(env,seed,Q_table,epsilon,BT_string_dict,Q_init,returns, UCB_dict): ## Q_init is changed to have value equal to Q_update 
+def run_BT(env,seed,Q_table,epsilon,BT_string_dict,Q_init,returns): ## Q_init is changed to have value equal to Q_update 
     done = False
     trajectory = []
     initial_state, _ = env.reset()
@@ -233,9 +136,6 @@ def run_BT(env,seed,Q_table,epsilon,BT_string_dict,Q_init,returns, UCB_dict): ##
     
     old_action = -1
     old_index_action = -1
-
-    # step_num = 0
-
     bt_length = 0
 
     current_state = dict()
@@ -250,11 +150,10 @@ def run_BT(env,seed,Q_table,epsilon,BT_string_dict,Q_init,returns, UCB_dict): ##
     episode_return = [0.0,0.0,0.0,0.0,0.0,0.0]
 
     while not done:
-        # step_num += 1
         time_step = []
         time_step.append(state)
 
-        action_num, idx_action_position, Q_table, is_exploit = choose_action(seed,Q,state,epsilon,max_idx_action,old_action,old_index_action,UCB_dict)
+        action_num, idx_action_position, Q_table, is_exploit = choose_action(seed,Q,state,epsilon,max_idx_action,old_action,old_index_action)
 
         if action_num == 4:
             pass
@@ -263,7 +162,6 @@ def run_BT(env,seed,Q_table,epsilon,BT_string_dict,Q_init,returns, UCB_dict): ##
         
         old_action = action_num
         old_index_action = idx_action_position
-        # if BT_string_dict.get(state["BT_string"]) is None: # BT_string collection
         print("BT_string:",state["BT_string"])
         BT_string_dict[state["BT_string"]] = state["BT_string"]
 
@@ -279,22 +177,11 @@ def run_BT(env,seed,Q_table,epsilon,BT_string_dict,Q_init,returns, UCB_dict): ##
         
         print("subtree_num:",subtree_num)
         max_idx_action = len(subtree_num)
-        # print("max_idx_action:",max_idx_action)
-
-        # cumulative_reward += reward
         
         action = [action_num, idx_action_position]
         time_step.append(action)
         time_step.append(reward)
         trajectory.append(time_step)
-
-        # if step_num%3 == 0:
-        #     Q = cal_G(episode_SAR,returns,Q_table,update_Q_memory=None,trajectory=None,episode_reward=None)
-        #     Q_table = Q
-        #     episode_SAR = []
-        #     print("Update Q table!!")
-
-        # UCB_dict[current_state["BT_string"]]["N"] += 1
 
         Q_table = update_Q(Q_table,state=current_state,action=action,state_new=state,reward=reward)
         current_state = state
@@ -307,7 +194,7 @@ def run_BT(env,seed,Q_table,epsilon,BT_string_dict,Q_init,returns, UCB_dict): ##
     episode_reward = (reward,is_exploit_list)
     return Q, BT_string_dict,returns,episode_reward,bt_length,trajectory,episode_return
 
-def choose_action(seed,Q,state,epsilon,max_idx_action,old_action,old_index_action,UCB_dict):
+def choose_action(seed,Q,state,epsilon,max_idx_action,old_action,old_index_action):
     """
     Choose an action based on the epsilon-greedy.
     output: action_num, the index of the collection_position
@@ -316,19 +203,16 @@ def choose_action(seed,Q,state,epsilon,max_idx_action,old_action,old_index_actio
     key_list = get_state(state)
     print("key_list:",key_list)
     print("BT_string:",state["BT_string"])
-    # print("Q:",Q)
 
     Q_state = Q[state["BT_string"]][key_list[0]][key_list[1]][key_list[2]][key_list[3]][key_list[4]].copy()
 
     for i in range(max_idx_action):
         if Q_state.get((0,i)) is None:
-            # print("Add action to Q table")
             for j in range(num):
                 Q[state["BT_string"]][key_list[0]][key_list[1]][key_list[2]][key_list[3]][key_list[4]][(j,i)] = 0.0
                 Q_state[(j,i)] = 0.0
 
     over_idx_position = max_idx_action
-    # Q_state_enable = Q_state.copy()
     while True:
         if Q_state.get((0,over_idx_position)) is not None:
             for k in range(num):
@@ -338,15 +222,12 @@ def choose_action(seed,Q,state,epsilon,max_idx_action,old_action,old_index_actio
             break
 
     action_num, idx_action_position,is_exploit = epsilon_greedy(seed, epsilon, num, Q_state, max_idx_action, old_action, old_index_action)
-
-    # action_num, idx_action_position = max(Q_state, key=Q_state.get)
         
     return action_num, idx_action_position, Q, is_exploit
 
 def epsilon_greedy(seed, epsilon, num, Q_state, max_idx_action, old_action, old_index_action):
     action_num = -1
     idx_action_position = -1
-    # np.random.seed(seed)
     while True:
         is_exploit = 0
         random_num = np.random.random()
@@ -364,16 +245,6 @@ def epsilon_greedy(seed, epsilon, num, Q_state, max_idx_action, old_action, old_
         if old_action!=action_num or old_index_action!=idx_action_position or epsilon==0.0:
             break
     return action_num,idx_action_position,is_exploit
-
-def UCB(seed,num, Q_state, max_idx_action, old_action, old_index_action,UCB_dict):
-    action_num = -1
-    idx_action_position = -1
-    np.random.seed(seed)
-    while True:
-
-        if old_action!=action_num or old_index_action!=idx_action_position:
-            break
-    pass
 
 def state_action_str(state,action):
     state_action = ""
@@ -435,12 +306,8 @@ def get_state(state):
     return [find_aruco,have_door_path,gripper_status,robot_pose_state,gripper_pose_state]
 
 def QLearning(env, seed, num_episodes, model, epsilon,filename):
-    """
-    GLIE Monte Carlo Control algorithm.
-    """
     env = env
     num_episodes = num_episodes
     epsilon = epsilon
 
-    policy,returns,BT_string_dict,reward_report,action_num_report,trajectory_memory,return_memory = Q_learning(env=env, seed=seed,episodes=num_episodes, model=model, epsilon=epsilon,filename=filename)
-    return policy,returns,BT_string_dict,reward_report,action_num_report,trajectory_memory,return_memory
+    Q_learning(env=env, seed=seed,episodes=num_episodes, model=model, epsilon=epsilon,filename=filename)

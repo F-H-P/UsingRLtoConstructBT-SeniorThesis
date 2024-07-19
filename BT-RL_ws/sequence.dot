@@ -28,24 +28,6 @@ ClosedGripper [fillcolor=gray, fontcolor=black, fontsize=9, label=ClosedGripper,
 "Sequence**" -> ClosedGripper;
 MMFollowTrajectory1 [fillcolor=gray, fontcolor=black, fontsize=9, label=MMFollowTrajectory1, shape=ellipse, style=filled];
 "Sequence*" -> MMFollowTrajectory1;
-"OpenGripper*" [fillcolor=gray, fontcolor=black, fontsize=9, label="OpenGripper*", shape=ellipse, style=filled];
-"Sequence*" -> "OpenGripper*";
-"Fallback**" [fillcolor=cyan, fontcolor=black, fontsize=9, label="Fallback**", shape=octagon, style=filled];
-"Sequence*" -> "Fallback**";
-"isHoldHandle*" [fillcolor=gray, fontcolor=black, fontsize=9, label="isHoldHandle*", shape=ellipse, style=filled];
-"Fallback**" -> "isHoldHandle*";
-"Sequence***" [fillcolor=orange, fontcolor=black, fontsize=9, label="Sequence***", shape=box, style=filled];
-"Fallback**" -> "Sequence***";
-CreateDoorPath3 [fillcolor=gray, fontcolor=black, fontsize=9, label=CreateDoorPath3, shape=ellipse, style=filled];
-"Sequence***" -> CreateDoorPath3;
-"MMApproachDoor*" [fillcolor=gray, fontcolor=black, fontsize=9, label="MMApproachDoor*", shape=ellipse, style=filled];
-"Sequence***" -> "MMApproachDoor*";
-MMMoveLinear3 [fillcolor=gray, fontcolor=black, fontsize=9, label=MMMoveLinear3, shape=ellipse, style=filled];
-"Sequence***" -> MMMoveLinear3;
-"ClosedGripper*" [fillcolor=gray, fontcolor=black, fontsize=9, label="ClosedGripper*", shape=ellipse, style=filled];
-"Sequence***" -> "ClosedGripper*";
-"ClosedGripper**" [fillcolor=gray, fontcolor=black, fontsize=9, label="ClosedGripper**", shape=ellipse, style=filled];
-"Sequence*" -> "ClosedGripper**";
 isDoorTraversal [fillcolor=gray, fontcolor=black, fontsize=9, label=isDoorTraversal, shape=ellipse, style=filled];
 "Sequence*" -> isDoorTraversal;
 }

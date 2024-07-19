@@ -29,21 +29,12 @@ def main(args=None):
 
     env = DoorTraversalEnv()
     if node._training_mode == "training":
-        f = 'test.pt'
-        # policy,returns,BT_string_dict,reward_report,action_num_report,trajectory_memory = QLearning(env=env,seed=1, num_episodes=1000, model = None, epsilon=1.0,filename=f)
+        f = 'test2.pt'
         episode = 6000
         print("Training for ", episode, " episodes")
         print("Saving the model to ", f)
         print("----------------------Training the model----------------------")
-        policy,returns,BT_string_dict,reward_report,action_num_report,trajectory_memory,return_memory = MonteCarloControlGLIE(env=env,seed=0, num_episodes=episode, model = None, epsilon=1.0,filename=f)
-        # model = dict()
-        # model["policy"] = policy
-        # model["returns"] = dict(returns)
-        # model["BT_string_dict"] = BT_string_dict
-        # model["reward_report"] = reward_report
-        # model["action_num_report"] = action_num_report
-        # model["trajectory_memory"] = trajectory_memory
-        # torch.save(model, f)
+        MonteCarloControlGLIE(env=env,seed=0, num_episodes=episode, model = None, epsilon=1.0,filename=f)
 
     elif node._training_mode == "retraining":
         f = 'EX_DoorTraversal_MC_6000_retrain15.pt'
@@ -53,14 +44,7 @@ def main(args=None):
         print("Training for ", episode, " episodes")
         print("Saving the model to ", f)
         print("----------------------Training the model----------------------")
-        policy,returns,BT_string_dict,reward_report,action_num_report,trajectory_memory,return_memory = MonteCarloControlGLIE(env=env,seed=0, num_episodes=episode, model=model,epsilon=1.0,filename=f)
-        # model["policy"] = policy
-        # model["returns"] = dict(returns)
-        # model["BT_string_dict"] = BT_string_dict
-        # model["reward_report"] = reward_report
-        # model["action_num_report"] = action_num_report
-        # model["trajectory_memory"] = trajectory_memory
-        # torch.save(model, 'Model_QLearning_HoldHandle_1_exploit_retrain.pt')
+        MonteCarloControlGLIE(env=env,seed=0, num_episodes=episode, model=model,epsilon=1.0,filename=f)
 
     node.get_logger().info("The training is finished, now the node is destroyed")
     node.destroy_node()
