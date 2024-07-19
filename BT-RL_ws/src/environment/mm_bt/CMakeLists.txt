@@ -25,7 +25,7 @@ install(PROGRAMS
   # scripts/behaviours_action.py
   # scripts/behaviours_condition.py
   # scripts/test_pub.py
-  scripts/test_bt_ja.py
+  scripts/bt_manager.py
   # scripts/test1.py
   # scripts/respawn.py
   DESTINATION lib/${PROJECT_NAME}
