@@ -1,6 +1,6 @@
 # A Reinforcement Learning Framework for Autonomous Behavior Tree Construction in Door Traversal Tasks
 ---
-This is the code of paper _A Reinforcement Learning Framework for Autonomous Behavior Tree Construction in Door Traversal Tasks_ that is implemented under Robot Operating System (ROS2) Humble framework.
+This is the code of paper _**A Reinforcement Learning Framework for Autonomous Behavior Tree Construction in Door Traversal Tasks**_ that is implemented under Robot Operating System (ROS2) Humble framework.
 
 ## Code Usage
 
@@ -21,9 +21,9 @@ Make sure that all packages and any change in the workspace is builded completel
 
 Command for build and source environment: 
 
-$ `cd ~/(path of the workspace)` 
+$ ```cd ~/(path of the workspace)```
 
-$ `colcon build && source install/setup.bash`
+$ ```colcon build && source install/setup.bash```
 
 #### **Step3**: Run _GenBehaviorTree Node_
 
@@ -31,7 +31,7 @@ _GenBehaviorTree Node_ is the node of "bt_manager.py" in _mm_bt package_ that is
 
 Command:
 
-$ `ros2 run mm_bt bt_manager.py`
+$ ```ros2 run mm_bt bt_manager.py```
 
 #### **Step4**: Run _TrainingNode_
 
@@ -39,4 +39,4 @@ _TrainingNode_ is declared in file "start_training.py" and it is used to run who
 
 Command:
 
-$ `ros2 run door_traversal start_training.py`
+$ ```ros2 run door_traversal start_training.py```
