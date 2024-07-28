@@ -19,26 +19,32 @@ In file "start_training.py" in _door_traversal package_, there are four arguemen
 
 Make sure that all packages and any change in the workspace is builded completely.
 
-Command for build and source environment: 
+`Command for build and source environment:`
 
 ```
 $ cd ~/(path of the workspace)
 ```
 
-$ ```colcon build && source install/setup.bash```
+```
+$ colcon build && source install/setup.bash
+```
 
 #### **Step3**: Run _GenBehaviorTree Node_
 
 _GenBehaviorTree Node_ is the node of "bt_manager.py" in _mm_bt package_ that is used to manage generating the BT while training.
 
-Command:
+`Command:`
 
-$ ```ros2 run mm_bt bt_manager.py```
+```
+$ ros2 run mm_bt bt_manager.py
+```
 
 #### **Step4**: Run _TrainingNode_
 
 _TrainingNode_ is declared in file "start_training.py" and it is used to run whole RL training process in the system.
 
-Command:
+`Command:`
 
-$ ```ros2 run door_traversal start_training.py```
+```
+$ ros2 run door_traversal start_training.py
+```
