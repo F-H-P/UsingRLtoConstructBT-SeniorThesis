@@ -112,7 +112,7 @@ class HoldHandleEnv(RobotController):
         self.get_logger().info("observation: "+str(observation))
 
         '''Check if the episode is done or not'''
-        if self.behavior_data.data == "FAILURE" or self.BT_status == "SUCCESS" or self.num_action.data == num_action_max: #or self.subtree_num[idx_action_position] >= 6 #(self.num_action.data == num_action_max and self.hold_handle_status == "FAILURE")
+        if self.behavior_data.data == "FAILURE" or self.BT_status == "SUCCESS" or self.num_action.data == num_action_max:
             done = True
         else:
             done = False
