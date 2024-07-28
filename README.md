@@ -21,7 +21,9 @@ Make sure that all packages and any change in the workspace is builded completel
 
 Command for build and source environment: 
 
-$ ```cd ~/(path of the workspace)```
+$ ```
+cd ~/(path of the workspace)
+```
 
 $ ```colcon build && source install/setup.bash```
 
