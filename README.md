@@ -11,7 +11,7 @@ There are two modes for training the policy: 1) "training" for training the new 
 #### **STEP1**: Set Arguements
 In file "start_training.py" in _door_traversal package_, there are four arguements that require to set before training the policy.
 * `'self._training_mode'` : the string argument to define training mode consist of **"training"** and **"retraining"**. 
-* `'f'`: file name of learning policy that is saved while training until the training process is complete. 
+* `'f'` : file name of learning policy that is saved while training until the training process is complete. 
 * `'episode'` : the number of episodes that you want to train. 
 * `'model'` : the model file that used to re-train. this argument is required when train in "retaining" mode only. 
 
