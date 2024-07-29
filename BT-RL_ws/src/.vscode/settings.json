@@ -1,3 +1,12 @@
 {
-    "cmake.sourceDirectory": "/home/carver/Fang_Folder/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/door_traversal"
+    "cmake.sourceDirectory": "/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/door_traversal",
+    "ros.distro": "humble",
+    "python.autoComplete.extraPaths": [
+        "/opt/ros/humble/lib/python3.10/site-packages",
+        "/opt/ros/humble/local/lib/python3.10/dist-packages"
+    ],
+    "python.analysis.extraPaths": [
+        "/opt/ros/humble/lib/python3.10/site-packages",
+        "/opt/ros/humble/local/lib/python3.10/dist-packages"
+    ]
 }

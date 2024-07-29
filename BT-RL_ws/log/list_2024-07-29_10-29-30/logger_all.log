@@ -1,0 +1,124 @@
+[0.416s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'list', '-p', '--base-paths', '/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws']
+[0.416s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='list', build_base='build', ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=None, packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], topological_order=False, names_only=False, paths_only=True, topological_graph=False, topological_graph_dot=False, topological_graph_density=False, topological_graph_legend=False, topological_graph_dot_cluster=False, topological_graph_dot_include_skipped=False, mixin_files=None, mixin=None, verb_parser=<colcon_mixin.mixin.mixin_argument.MixinArgumentDecorator object at 0x7d494463b1f0>, verb_extension=<colcon_package_information.verb.list.ListVerb object at 0x7d49446d2e00>, main=<bound method ListVerb.main of <colcon_package_information.verb.list.ListVerb object at 0x7d49446d2e00>>, mixin_verb=('list',))
+[1.073s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[1.073s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[1.073s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[1.073s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[1.073s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[1.074s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws'
+[1.074s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws) by extensions ['ignore', 'ignore_ament_install']
+[1.075s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws) by extension 'ignore'
+[1.075s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws) by extension 'ignore_ament_install'
+[1.075s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws) by extensions ['colcon_pkg']
+[1.075s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws) by extension 'colcon_pkg'
+[1.075s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws) by extensions ['colcon_meta']
+[1.075s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws) by extension 'colcon_meta'
+[1.075s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws) by extensions ['ros']
+[1.075s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws) by extension 'ros'
+[1.105s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws) by extensions ['cmake', 'python']
+[1.105s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws) by extension 'cmake'
+[1.105s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws) by extension 'python'
+[1.105s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws) by extensions ['python_setup_py']
+[1.105s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws) by extension 'python_setup_py'
+[1.106s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/log) by extensions ['ignore', 'ignore_ament_install']
+[1.106s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/log) by extension 'ignore'
+[1.106s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/log) ignored
+[1.107s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src) by extensions ['ignore', 'ignore_ament_install']
+[1.107s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src) by extension 'ignore'
+[1.107s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src) by extension 'ignore_ament_install'
+[1.107s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src) by extensions ['colcon_pkg']
+[1.107s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src) by extension 'colcon_pkg'
+[1.107s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src) by extensions ['colcon_meta']
+[1.107s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src) by extension 'colcon_meta'
+[1.107s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src) by extensions ['ros']
+[1.107s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src) by extension 'ros'
+[1.107s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src) by extensions ['cmake', 'python']
+[1.107s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src) by extension 'cmake'
+[1.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src) by extension 'python'
+[1.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src) by extensions ['python_setup_py']
+[1.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src) by extension 'python_setup_py'
+[1.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/door_traversal) by extensions ['ignore', 'ignore_ament_install']
+[1.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/door_traversal) by extension 'ignore'
+[1.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/door_traversal) by extension 'ignore_ament_install'
+[1.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/door_traversal) by extensions ['colcon_pkg']
+[1.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/door_traversal) by extension 'colcon_pkg'
+[1.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/door_traversal) by extensions ['colcon_meta']
+[1.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/door_traversal) by extension 'colcon_meta'
+[1.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/door_traversal) by extensions ['ros']
+[1.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/door_traversal) by extension 'ros'
+[1.114s] DEBUG:colcon.colcon_core.package_identification:Package '/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/door_traversal' with type 'ros.ament_cmake' and name 'door_traversal'
+[1.115s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment) by extensions ['ignore', 'ignore_ament_install']
+[1.115s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment) by extension 'ignore'
+[1.115s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment) by extension 'ignore_ament_install'
+[1.115s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment) by extensions ['colcon_pkg']
+[1.115s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment) by extension 'colcon_pkg'
+[1.115s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment) by extensions ['colcon_meta']
+[1.115s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment) by extension 'colcon_meta'
+[1.115s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment) by extensions ['ros']
+[1.115s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment) by extension 'ros'
+[1.115s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment) by extensions ['cmake', 'python']
+[1.115s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment) by extension 'cmake'
+[1.115s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment) by extension 'python'
+[1.115s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment) by extensions ['python_setup_py']
+[1.116s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment) by extension 'python_setup_py'
+[1.116s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment/mm_bt) by extensions ['ignore', 'ignore_ament_install']
+[1.116s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment/mm_bt) by extension 'ignore'
+[1.116s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment/mm_bt) by extension 'ignore_ament_install'
+[1.116s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment/mm_bt) by extensions ['colcon_pkg']
+[1.116s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment/mm_bt) by extension 'colcon_pkg'
+[1.116s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment/mm_bt) by extensions ['colcon_meta']
+[1.116s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment/mm_bt) by extension 'colcon_meta'
+[1.116s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment/mm_bt) by extensions ['ros']
+[1.116s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment/mm_bt) by extension 'ros'
+[1.118s] DEBUG:colcon.colcon_core.package_identification:Package '/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment/mm_bt' with type 'ros.ament_cmake' and name 'mm_bt'
+[1.119s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment/py_trees_ros) by extensions ['ignore', 'ignore_ament_install']
+[1.120s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment/py_trees_ros) by extension 'ignore'
+[1.120s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment/py_trees_ros) by extension 'ignore_ament_install'
+[1.120s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment/py_trees_ros) by extensions ['colcon_pkg']
+[1.120s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment/py_trees_ros) by extension 'colcon_pkg'
+[1.120s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment/py_trees_ros) by extensions ['colcon_meta']
+[1.120s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment/py_trees_ros) by extension 'colcon_meta'
+[1.120s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment/py_trees_ros) by extensions ['ros']
+[1.120s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment/py_trees_ros) by extension 'ros'
+[1.132s] DEBUG:colcon.colcon_core.package_identification:Package '/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment/py_trees_ros' with type 'ros.ament_python' and name 'py_trees_ros'
+[1.132s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment/py_trees_ros_interfaces) by extensions ['ignore', 'ignore_ament_install']
+[1.132s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment/py_trees_ros_interfaces) by extension 'ignore'
+[1.133s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment/py_trees_ros_interfaces) by extension 'ignore_ament_install'
+[1.133s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment/py_trees_ros_interfaces) by extensions ['colcon_pkg']
+[1.133s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment/py_trees_ros_interfaces) by extension 'colcon_pkg'
+[1.133s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment/py_trees_ros_interfaces) by extensions ['colcon_meta']
+[1.133s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment/py_trees_ros_interfaces) by extension 'colcon_meta'
+[1.133s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment/py_trees_ros_interfaces) by extensions ['ros']
+[1.133s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment/py_trees_ros_interfaces) by extension 'ros'
+[1.134s] DEBUG:colcon.colcon_core.package_identification:Package '/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment/py_trees_ros_interfaces' with type 'ros.ament_cmake' and name 'py_trees_ros_interfaces'
+[1.136s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment/py_trees_ros_tutorials) by extensions ['ignore', 'ignore_ament_install']
+[1.136s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment/py_trees_ros_tutorials) by extension 'ignore'
+[1.136s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment/py_trees_ros_tutorials) by extension 'ignore_ament_install'
+[1.136s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment/py_trees_ros_tutorials) by extensions ['colcon_pkg']
+[1.137s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment/py_trees_ros_tutorials) by extension 'colcon_pkg'
+[1.137s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment/py_trees_ros_tutorials) by extensions ['colcon_meta']
+[1.137s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment/py_trees_ros_tutorials) by extension 'colcon_meta'
+[1.137s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment/py_trees_ros_tutorials) by extensions ['ros']
+[1.137s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment/py_trees_ros_tutorials) by extension 'ros'
+[1.139s] DEBUG:colcon.colcon_core.package_identification:Package '/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment/py_trees_ros_tutorials' with type 'ros.ament_python' and name 'py_trees_ros_tutorials'
+[1.139s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment/py_trees_ros_viewer) by extensions ['ignore', 'ignore_ament_install']
+[1.139s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment/py_trees_ros_viewer) by extension 'ignore'
+[1.139s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment/py_trees_ros_viewer) by extension 'ignore_ament_install'
+[1.140s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment/py_trees_ros_viewer) by extensions ['colcon_pkg']
+[1.140s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment/py_trees_ros_viewer) by extension 'colcon_pkg'
+[1.140s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment/py_trees_ros_viewer) by extensions ['colcon_meta']
+[1.140s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment/py_trees_ros_viewer) by extension 'colcon_meta'
+[1.140s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment/py_trees_ros_viewer) by extensions ['ros']
+[1.140s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment/py_trees_ros_viewer) by extension 'ros'
+[1.141s] DEBUG:colcon.colcon_core.package_identification:Package '/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/environment/py_trees_ros_viewer' with type 'ros.ament_python' and name 'py_trees_ros_viewer'
+[1.142s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/msg_interface) by extensions ['ignore', 'ignore_ament_install']
+[1.142s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/msg_interface) by extension 'ignore'
+[1.143s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/msg_interface) by extension 'ignore_ament_install'
+[1.143s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/msg_interface) by extensions ['colcon_pkg']
+[1.143s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/msg_interface) by extension 'colcon_pkg'
+[1.143s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/msg_interface) by extensions ['colcon_meta']
+[1.143s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/msg_interface) by extension 'colcon_meta'
+[1.143s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/msg_interface) by extensions ['ros']
+[1.143s] Level 1:colcon.colcon_core.package_identification:_identify(/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/msg_interface) by extension 'ros'
+[1.190s] DEBUG:colcon.colcon_core.package_identification:Package '/home/fhp/UsingRLtoConstructBT-SeniorThesis/BT-RL_ws/src/msg_interface' with type 'ros.ament_cmake' and name 'msg_interface'
+[1.190s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
